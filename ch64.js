@@ -12,26 +12,6 @@
 // value: 4994593
 // js hash: 4598645670525206072
 // clickhouse cityHash64() hash: 4598645670525206072
-
-// So dumb - there is no good vanilla cityHash64 implementation in nodejs. Moreover
-// there is definitely no clickhouse flavored cityHash64 implementation. So here we are.
-// I had o1/claude translate this out of rage :P
-//
-//
-// This is a chatGPT o1/claude translation of the ClickHouse specific implementation of cityHash64
-// as found here: https://github.com/go-faster/city/blob/main/ch_64.go
-//
-// it's reasonably fast. 10 million iterations of a 4 character string took
-// 1.5 seconds on my m4 max machine.
-//
-// test vals:
-// value: asdf3
-// js hash: 14016960382098508583
-// clickhouse cityHash64() hash: 14016960382098508583
-//
-// value: 4994593
-// js hash: 4598645670525206072
-// clickhouse cityHash64() hash: 4598645670525206072
 //
 // Also tested with fuzzing against a few million random strings with lengths between 2 and 200
 // to ensure it matches the output of cityHash64 in ClickHouse.
