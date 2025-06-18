@@ -74,4 +74,33 @@ describe("ch64", () => {
       expectEqualHashes(res, randomTestStrings);
     }
   });
+
+  test("hash function performance", () => {
+    const iterations = 100000;
+    const testStrings = [
+      "a",
+      "test",
+      "longer string here",
+      "very long string with lots of characters to test performance",
+    ];
+
+    const start = performance.now();
+    for (const str of testStrings) {
+      for (let i = 0; i < iterations; i++) {
+        ch64(str);
+      }
+    }
+    const end = performance.now();
+
+    const totalHashes = iterations * testStrings.length;
+    const duration = end - start;
+    const hashesPerSecond = Math.round(totalHashes / (duration / 1000));
+
+    console.log(
+      `Pure hash performance: ${duration.toFixed(2)}ms for ${totalHashes} hashes`,
+    );
+    console.log(
+      `Throughput: ${hashesPerSecond.toLocaleString()} hashes/second`,
+    );
+  });
 });
